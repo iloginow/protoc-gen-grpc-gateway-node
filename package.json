@@ -2,8 +2,10 @@
   "name": "protoc-gen-grpc-gateway-node",
   "version": "0.1.0",
   "description": "A wrapper around the gRPC reverse proxy generator standalone package for Node.js",
-  "postinstall": "go-npm install",
-  "preuninstall": "go-npm uninstall",
+  "scrtipts": {
+    "postinstall": "go-npm install",
+    "preuninstall": "go-npm uninstall"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/iloginow/protoc-gen-grpc-gateway-node.git"
