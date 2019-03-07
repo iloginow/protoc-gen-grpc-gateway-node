@@ -1,0 +1,31 @@
+{
+  "name": "protoc-gen-grpc-gateway-node",
+  "version": "0.1.0",
+  "description": "A wrapper around the gRPC reverse proxy generator standalone package for Node.js",
+  "postinstall": "go-npm install",
+  "preuninstall": "go-npm uninstall",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iloginow/protoc-gen-grpc-gateway-node.git"
+  },
+  "keywords": [
+    "protoc",
+    "grpc",
+    "gateway",
+    "node"
+  ],
+  "author": "Ilia Loginov <i.loginow@outlook.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/iloginow/protoc-gen-grpc-gateway-node/issues"
+  },
+  "dependencies": {
+    "go-npm": "^0.1.9",
+    "save": "^2.3.3"
+  },
+  "goBinary": {
+    "name": "protoc-gen-grpc-gateway",
+    "path": "./bin",
+    "url": "https://github.com/iloginow/protoc-gen-grpc-gateway/releases/download/v{{version}}/protoc-gen-grpc-gateway_{{version}}_{{platform}}_{{arch}}.tar.gz"
+  }
+}
