@@ -22,8 +22,7 @@
     "url": "https://github.com/iloginow/protoc-gen-grpc-gateway-node/issues"
   },
   "dependencies": {
-    "go-npm": "^0.1.9",
-    "save": "^2.3.3"
+    "go-npm": "^0.1.9"
   },
   "goBinary": {
     "name": "protoc-gen-grpc-gateway",
