@@ -21,12 +21,12 @@
   "bugs": {
     "url": "https://github.com/iloginow/protoc-gen-grpc-gateway-npm/issues"
   },
-  "dependencies": {
-    "go-npm": "^0.1.9"
-  },
   "goBinary": {
     "name": "protoc-gen-grpc-gateway",
     "path": "./bin",
     "url": "https://github.com/iloginow/protoc-gen-grpc-gateway/releases/download/v{{version}}/protoc-gen-grpc-gateway_{{version}}_{{platform}}_{{arch}}.tar.gz"
+  },
+  "dependencies": {
+    "go-npm": "^0.1.9"
   }
 }
