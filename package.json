@@ -2,7 +2,7 @@
   "name": "protoc-gen-grpc-gateway-npm",
   "version": "0.1.0",
   "description": "A wrapper around the gRPC reverse proxy generator for Node.js",
-  "scrtipts": {
+  "scripts": {
     "postinstall": "go-npm install",
     "preuninstall": "go-npm uninstall"
   },
