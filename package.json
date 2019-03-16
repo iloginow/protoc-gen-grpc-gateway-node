@@ -22,7 +22,6 @@
     "url": "https://github.com/iloginow/protoc-gen-grpc-gateway-npm/issues"
   },
   "dependencies": {
-    "ora": "^3.2.0",
     "tar": "^4.4.8"
   },
   "devDependencies": {

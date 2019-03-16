@@ -3,7 +3,6 @@ const fs = require('fs');
 const https = require('https');
 const url = require('url');
 const tar = require('tar');
-const ora = require('ora');
 
 const VERSION = '0.1.0';
 
@@ -36,8 +35,9 @@ const binFilePath = path.resolve(binDirPath, `./${binName}`);
 const parentBinDirPath = path.resolve(__dirname, '../.bin');
 const parentBinFilePath = path.resolve(parentBinDirPath, `./${binName}`);
 
-function install(res) {
+async function install(res) {
   res.pipe(tar.x({ cwd: binDirPath }));
+  fs.symlinkSync(binFilePath, parentBinFilePath);
 }
 
 if (!arch) throw new Error('Archtecture is not supported');
@@ -59,8 +59,6 @@ if (fs.existsSync(binDirPath)) {
   fs.mkdirSync(binDirPath);
 }
 
-const spinner = ora(`Downloading ${basePath}/${tarPath}`).start();
-
 https.get(`${basePath}/${tarPath}`, (res) => {
   const { statusCode, headers } = res;
   const { location } = headers;
@@ -76,11 +74,6 @@ https.get(`${basePath}/${tarPath}`, (res) => {
   } else {
     install(res);
   }
-
-  res.on('end', () => {
-    spinner.succeed('Download complete \n');
-    fs.symlinkSync(binFilePath, parentBinFilePath);
-  });
 }).on('error', (e) => {
   throw e;
 });
