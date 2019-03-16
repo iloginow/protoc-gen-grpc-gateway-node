@@ -36,17 +36,11 @@ const binFilePath = path.resolve(binDirPath, `./${binName}`);
 const parentBinDirPath = path.resolve(__dirname, '../.bin');
 const parentBinFilePath = path.resolve(parentBinDirPath, `./${binName}`);
 
-const spinner = ora(`Downloading ${basePath}/${tarPath}`);
-
 async function install(res) {
   try {
-    spinner.succeed('Download complete');
-    spinner.text = 'Installing...';
-
     await res.pipe(tar.x({ cwd: binDirPath }));
 
     fs.symlinkSync(binFilePath, parentBinFilePath);
-    spinner.succeed('Done!');
   } catch (e) {
     throw e;
   }
@@ -66,6 +60,8 @@ if (fs.existsSync(binDirPath)) {
 } else {
   fs.mkdirSync(binDirPath);
 }
+
+const spinner = ora(`Downloading ${basePath}/${tarPath}`);
 
 https.get(`${basePath}/${tarPath}`, (res) => {
   const { statusCode, headers } = res;
