@@ -3,6 +3,7 @@ const fs = require('fs');
 const https = require('https');
 const url = require('url');
 const tar = require('tar');
+const ora = require('ora');
 
 const VERSION = '0.1.0';
 
@@ -35,11 +36,17 @@ const binFilePath = path.resolve(binDirPath, `./${binName}`);
 const parentBinDirPath = path.resolve(__dirname, '../.bin');
 const parentBinFilePath = path.resolve(parentBinDirPath, `./${binName}`);
 
+const spinner = ora(`Downloading ${basePath}/${tarPath}`);
+
 async function install(res) {
   try {
+    spinner.succeed('Download complete');
+    spinner.text = 'Installing...';
+
     await res.pipe(tar.x({ cwd: binDirPath }));
 
     fs.symlinkSync(binFilePath, parentBinFilePath);
+    spinner.succeed('Done!');
   } catch (e) {
     throw e;
   }
@@ -62,12 +69,13 @@ if (fs.existsSync(binDirPath)) {
 
 https.get(`${basePath}/${tarPath}`, (res) => {
   const { statusCode, headers } = res;
+  const { location } = headers;
 
-  if (statusCode > 300 && statusCode < 400 && headers.location) {
-    if (url.parse(headers.location).hostname) {
-      https.get(headers.location, install);
+  if (statusCode > 300 && statusCode < 400 && location) {
+    if (url.parse(location).hostname) {
+      https.get(location, install);
     } else {
-      https.get(url.resolve(url.parse(url).hostname, headers.location), install);
+      https.get(url.resolve(url.parse(url).hostname, location), install);
     }
   } else if (statusCode === 404) {
     throw new Error(`404 ${basePath}/${tarPath} download failed`);
