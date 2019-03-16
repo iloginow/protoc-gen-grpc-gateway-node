@@ -53,6 +53,10 @@ if (!fs.existsSync(parentBinDirPath)) {
   throw new Error('Parent .bin directory not found');
 }
 
+if (fs.existsSync(parentBinFilePath)) {
+  fs.unlinkSync(parentBinFilePath);
+}
+
 if (fs.existsSync(binDirPath)) {
   if (fs.existsSync(binFilePath)) {
     fs.unlinkSync(binFilePath);
