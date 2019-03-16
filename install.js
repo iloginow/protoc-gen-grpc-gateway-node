@@ -85,6 +85,7 @@ https.get(`${basePath}/${tarPath}`, (res) => {
 
   res.on('end', () => {
     spinner.succeed('Download complete \n');
+    spinner.end();
   });
 }).on('error', (e) => {
   throw e;
