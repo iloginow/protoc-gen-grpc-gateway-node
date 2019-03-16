@@ -36,14 +36,9 @@ const binFilePath = path.resolve(binDirPath, `./${binName}`);
 const parentBinDirPath = path.resolve(__dirname, '../.bin');
 const parentBinFilePath = path.resolve(parentBinDirPath, `./${binName}`);
 
-async function install(res) {
-  try {
-    await res.pipe(tar.x({ cwd: binDirPath }));
-
-    fs.symlinkSync(binFilePath, parentBinFilePath);
-  } catch (e) {
-    throw e;
-  }
+function install(res) {
+  res.pipe(tar.x({ cwd: binDirPath }));
+  fs.symlinkSync(binFilePath, parentBinFilePath);
 }
 
 if (!arch) throw new Error('Archtecture is not supported');
@@ -85,7 +80,6 @@ https.get(`${basePath}/${tarPath}`, (res) => {
 
   res.on('end', () => {
     spinner.succeed('Download complete \n');
-    spinner.stop();
   });
 }).on('error', (e) => {
   throw e;
