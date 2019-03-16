@@ -61,7 +61,7 @@ if (fs.existsSync(binDirPath)) {
   fs.mkdirSync(binDirPath);
 }
 
-const spinner = ora(`Downloading ${basePath}/${tarPath}`);
+const spinner = ora(`Downloading ${basePath}/${tarPath}`).start();
 
 https.get(`${basePath}/${tarPath}`, (res) => {
   const { statusCode, headers } = res;
@@ -78,6 +78,10 @@ https.get(`${basePath}/${tarPath}`, (res) => {
   } else {
     install(res);
   }
+
+  res.on('end', () => {
+    spinner.succeed('Download complete \n');
+  });
 }).on('error', (e) => {
   throw e;
 });
